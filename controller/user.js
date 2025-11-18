@@ -10,7 +10,7 @@ try {
     // save data to database(MongoDB)
     const newUser = new userModel(body);
     await newUser.save();
-
+    
     const {name, age, email, password} = newUser;
 
     // send response

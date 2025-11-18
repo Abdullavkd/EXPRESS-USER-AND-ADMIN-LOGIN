@@ -5,17 +5,28 @@ import userRouter from './router/userRouter.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
 
+const PORT = process.env.PORT || 5000;
+const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017/mydatabaseone";
+
+app.use(express.json());
 app.use('/user',userRouter)
 
 
-mongoose.connect("mongodb://localhost:27017/mydatabaseone")
-.then(() => {
-    app.listen(PORT,() => {
-    console.log(`server is running on port ${PORT}`)
-    })
-})
-.catch((error) => {
-    console.log("Eroor on connecting to database",error)
-})
+async function start() {
+    try {
+        await mongoose.connect(MONGO_URL,{
+        useNewUrlParser:true,
+        useUnifiedTopology:true
+        })
+        console.log("Monogdb Connected");
+        app.listen(PORT,() => {
+            console.log("Server is running on Port "+PORT)
+        })
+    } catch (error) {
+        console.log("An error occured on connecting MOngoDB",error.message)
+        process.exit(1);
+    }
+}
+start();
+
