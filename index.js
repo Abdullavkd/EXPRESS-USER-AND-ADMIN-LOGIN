@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import userRouter from './router/userRouter.js';
+import adminRouter from './router/adminRouter.js';
 dotenv.config();
 
 const app = express();
@@ -11,6 +12,7 @@ const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017/mydatabase
 
 app.use(express.json());
 app.use('/user',userRouter)
+app.use('/admin',adminRouter)
 
 
 async function start() {
