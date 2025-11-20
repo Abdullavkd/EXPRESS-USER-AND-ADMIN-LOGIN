@@ -9,6 +9,13 @@ try {
     // take data from body
     const {name, age, email, password} = req.body;
 
+    // check is user already exist
+    const isOld = await userModel.findOne({email:email});
+
+    if(isOld) {
+        return res.status(404).json("User is already exist")
+    }
+
     // bcrypt password
     const bcryptPass = await bcrypt.hash(password,10);
 

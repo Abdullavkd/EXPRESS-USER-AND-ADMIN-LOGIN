@@ -16,6 +16,13 @@ const adminRegister = async (req,res) => {
         // take data from body
         const {name, email, password} = req.body;
 
+        // check is this email already exists
+        const isOld = await adminModel.findOne({email:email});
+
+        if(isOld) {
+            return res.status(404).json("Admin is Alredy exist")
+        }
+
         // bcrypt password
         const bcryptPass = await bcrypt.hash(password,10);
 
