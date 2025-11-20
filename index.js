@@ -3,16 +3,18 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import userRouter from './router/userRouter.js';
 import adminRouter from './router/adminRouter.js';
+import cors from 'cors'
 dotenv.config();
 
 const app = express();
+app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017/mydatabaseone";
 
 app.use(express.json());
-app.use('/user',userRouter)
-app.use('/admin',adminRouter)
+app.use('/user',userRouter);
+app.use('/admin',adminRouter);
 
 
 async function start() {

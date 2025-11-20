@@ -18,7 +18,8 @@ try {
         age,
         email,
         password:bcryptPass,
-        role:'user'
+        role:'user',
+        blocked: false
     });
     await newUser.save();
     

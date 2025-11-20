@@ -20,10 +20,10 @@ const verifyToken = async (req,res,next) => {
 
         // collect user details from token
         const data = jwt.verify(token, process.env.SECRET_KEY);
-console.log(data.id)
+
         // find the user details
-        const user = await adminModel.findOne({name:'admin'})
-console.log(user)
+        const user = await adminModel.findById(data.id)
+
         if(!user) {
             return res.status(404).json("admin not found")
         }
@@ -31,7 +31,7 @@ console.log(user)
         req.user = user;
         next()
     } catch (error) {
-        
+        res.status(error.status || 5000).json(error.message || 'There is an error in authorization')
     }
 
 }

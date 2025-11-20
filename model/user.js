@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
     role: {
         type:String,
         required: true
+    },
+    blocked:{
+        type: Boolean,
+        required: true
     }
 });
 
